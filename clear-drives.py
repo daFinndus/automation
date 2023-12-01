@@ -38,19 +38,17 @@ def set_drives():
 
     for partition in psutil.disk_partitions():
         confirmation = input(
-            f"\nWe found '{partition.device}'. Do you want to add it to the scan? [y/n] "
+            f"\nWe found: {partition.device}. Do you want to add it to the scan? [y/n] "
         ).lower()
 
         if confirmation == "y" or confirmation == "yes":
             print(f"We added the drive {partition.device} to our scannable drives.")
             drives.append(partition.device)
         else:
-            print(f"Okay, we will not scan '{partition.device}'.")
+            print(f"Okay, we will not scan {partition.device}.")
 
     if drives:
-        print(
-            f"\nSetup is complete. We got these drives for the scan now: '{drives}'.\n"
-        )
+        print(f"\nSetup is complete. We got these drives for the scan now: {drives}.\n")
         return drives
     else:
         print(
@@ -65,7 +63,7 @@ def save_files(drive):
     path_storage = []
 
     hidden_files = input(
-        f"Do you also wanna see the hidden directories on '{drive}'? [y/n] "
+        f"Do you also wanna see the hidden directories on: {drive}? [y/n] "
     ).lower()
     print("")
 
@@ -86,7 +84,7 @@ def check_if_folder(path):
         if os.path.isdir(path):
             return path
     except PermissionError as e:
-        print(f"We do not have permission to check '{path}'.")
+        print(f"We do not have permission to check {path}.")
         print(f"Error: {e}")
 
 
@@ -96,20 +94,20 @@ def check_if_empty(folder):
         if not os.listdir(folder):
             return folder  # Add every empty folder in list
     except PermissionError as e:
-        print(f"\nWe do not have access to scan '{folder}'.")
+        print(f"\nWe do not have access to scan {folder}.")
         print(f"Error: {e}")
 
 
 # Delete chosen path
 def delete_folder(folder):
     delete_folder_confirmation = input(
-        f"\nDo you wanna delete '{folder}'? [y/n] "
+        f"\nDo you wanna delete {folder}? [y/n] "
     ).lower()
 
     if delete_folder_confirmation == "y" or delete_folder_confirmation == "yes":
         try:
             os.rmdir(folder)
-            print(f"Deleted '{folder}'.")
+            print(f"Deleted {folder}.")
         except Exception as e:
             print(f"Error: {e}")
 
